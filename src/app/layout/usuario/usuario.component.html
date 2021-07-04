@@ -1,1 +1,153 @@
-<p>usuario works!</p>
+<ngb-alert *ngIf="mostrarAlerta" style="margin-top: -12.5px;" [type]="tipoAlerta" (closed)="mostrarAlerta = false;">{{mensajeAlerta}}</ngb-alert>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form [formGroup]="usuarioForm">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 my-3">
+                        <label for="nameInput" class="form-label">Nombres</label>
+                        <input type="text" formControlName="usuNombres" class="form-control" name="nombreInput">
+                        <div *ngIf="usuNombres.invalid && (usuNombres.dirty || usuNombres.touched)" class="my-1" style="color: rgb(197, 68, 68);">
+                            <div *ngIf="usuNombres.errors.required">
+                                * Este campo es requerido
+                            </div>
+                            <div *ngIf="usuNombres.errors.pattern">
+                                * Este campo contiene caracteres no permitidos
+                            </div>
+                            <div *ngIf="usuNombres.errors.maxlength">
+                                * Se requieren máximo 50 caracteres
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 my-3">
+                        <label for="lastNameInput" class="form-label">Apellidos</label>
+                        <input type="text" formControlName="usuApellidos" class="form-control" name="apellidoInput">
+                        <div *ngIf="usuApellidos.invalid && (usuApellidos.dirty || usuApellidos.touched)" class="my-1" style="color: rgb(197, 68, 68);">
+                            <div *ngIf="usuApellidos.errors.required">
+                                * Este campo es requerido
+                            </div>
+                            <div *ngIf="usuApellidos.errors.pattern">
+                                * Este campo contiene caracteres no permitidos
+                            </div>
+                            <div *ngIf="usuApellidos.errors.maxlength">
+                                * Se requieren máximo 30 caracteres
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 my-3">
+                        <label for="genderSelect" class="form-label">Sexo</label>
+                        <div id="lista-genero">
+                            <select name="genero-select" id="genero-select" class="form-control form-control-sm custom-select" formControlName="usuSexo">
+                                <option [ngValue]=null> Selecciona una opción </option>
+                                <option [ngValue]="SEXO.clave" *ngFor="let SEXO of SEXO_USUARIO">{{SEXO.nombre}}</option>
+                            </select>
+                        </div>
+                        <div *ngIf="usuSexo.invalid && (usuSexo.dirty || usuSexo.touched)" class="my-1" style="color: rgb(197, 68, 68);">
+                            <div *ngIf="usuSexo.errors.required">
+                                * Este campo es requerido
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 my-3">
+                        <label for="dateInput" class="form-label">Fecha de Nacimiento</label>
+                        <input type="date" class="form-control" formControlName="usuFechNacimiento" name="fechaNacimientoInput" [max]=maxFecha>
+                        <div *ngIf="usuFechNacimiento.invalid && (usuFechNacimiento.dirty || usuFechNacimiento.touched)" class="my-1" style="color: rgb(197, 68, 68);">
+                            <div *ngIf="usuFechNacimiento.errors.required">
+                                * Este campo es requerido
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 my-3">
+                        <label for="dniInput" class="form-label">Documento de Identidad</label>
+                        <input type="text" class="form-control" formControlName="usuDni" name="dniInput">
+                        <div *ngIf="usuDni.invalid && (usuDni.dirty || usuDni.touched)" class="my-1" style="color: rgb(197, 68, 68);">
+                            <div *ngIf="usuDni.errors.required">
+                                * Este campo es requerido
+                            </div>
+                            <div *ngIf="usuDni.errors.pattern">
+                                * Este campo contiene caracteres no permitidos 
+                            </div>
+                            <div *ngIf="usuDni.errors.minlength">
+                                * Se requieren mínimo 8 caracteres
+                            </div>
+                            <div *ngIf="usuDni.errors.maxlength">
+                                * Se requieren máximo 8 caracteres
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 my-3">
+                        <label for="emailInput" class="form-label">Correo Electrónico</label>
+                        <input type="text" class="form-control" name="emailInput" aria-describedby="emailHelp" formControlName="usuEmail">
+                        <div *ngIf="usuEmail.invalid && (usuEmail.dirty || usuEmail.touched)" class="my-1" style="color: rgb(197, 68, 68);">
+                            <div *ngIf="usuEmail.errors.required">
+                                * Este campo es requerido
+                            </div>
+                            <div *ngIf="usuEmail.errors.pattern">
+                                * El formato ingresado no es correcto
+                            </div>
+                            <div *ngIf="usuEmail.errors.maxlength">
+                                * Se requieren mínimo 8 caracteres
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 my-3">
+                        <label for="usernameInput" class="form-label">Nombre de Usuario</label>
+                        <input type="text" class="form-control" formControlName="usuAlias" name="usuarioInput">
+                        <div *ngIf="usuAlias.invalid && (usuAlias.dirty || usuAlias.touched)" class="my-1" style="color: rgb(197, 68, 68);">
+                            <div *ngIf="usuAlias.errors.required">
+                                * Este campo es requerido
+                            </div>
+                            <div *ngIf="usuAlias.errors.maxlength">
+                                * Se requieren máximo 15 caracteres
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 my-3">
+                        <label for="passwordInput" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" name="passwordInput" formControlName="usuContrasenia">
+                        <div *ngIf="usuContrasenia.invalid && (usuContrasenia.dirty || usuContrasenia.touched)" class="my-1" style="color: rgb(197, 68, 68);">
+                            <div *ngIf="usuContrasenia.errors.required">
+                                * Este campo es requerido
+                            </div>
+                            <div *ngIf="usuContrasenia.errors.minlength">
+                                * Se requieren mínimo 8 caracteres
+                            </div>
+                            <div *ngIf="usuContrasenia.errors.maxlength">
+                                * Se requieren máximo 20 caracteres
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-12 my-3">
+                        <label for="addressInput" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" formControlName="usuDireccion" name="direccionInput">
+                        <div *ngIf="usuDireccion.invalid && (usuDireccion.dirty || usuDireccion.touched)" class="my-1" style="color: rgb(197, 68, 68);">
+                            <div *ngIf="usuDireccion.errors.required">
+                                * Este campo es requerido
+                            </div>
+                            <div *ngIf="usuDireccion.errors.maxlength">
+                                * Se requieren máximo 100 caracteres
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="button" class="btn btn-primary my-4 " (click)="guardarUsuario()" [disabled]="usuarioForm.invalid">Enviar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<br>  
