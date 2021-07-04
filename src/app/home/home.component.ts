@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import {UsuarioService} from '../layout/usuario/usuario.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import {NgbAlert} from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-home',
@@ -9,6 +11,8 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  @ViewChild('cerrarAlerta') cerrarAlerta: NgbAlert; 
 
   usuarioForm: any;
 
@@ -42,9 +46,11 @@ export class HomeComponent implements OnInit {
     this.usuarioService.login(this.alias, this.contrasena).subscribe(() => {
       this.goToCuenta();
     }, error =>{ 
-      this.mostrarAlerta = true;
-      this.tipoAlerta = "danger";
-      this.mensajeAlerta = "El usuario o la contraseña no son correctos";
+      setTimeout(()=> {
+        this.mostrarAlerta = true;
+        this.tipoAlerta = "danger";
+        this.mensajeAlerta = "El usuario o la contraseña no son correctos";
+      },4000);
     });
   }
 

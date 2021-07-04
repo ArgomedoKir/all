@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { UsuarioService } from './usuario.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import {UsuarioClass} from './usuario.class';
+import {NgbAlert} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-usuario',
@@ -12,6 +13,8 @@ import {UsuarioClass} from './usuario.class';
 })
 export class UsuarioComponent implements OnInit {
 
+  @ViewChild('cerrarAlerta') cerrarAlerta: NgbAlert; 
+
   SEXO_USUARIO = [{'clave': 'M', 'nombre': 'Masculino'}, {'clave': 'F', 'nombre': 'Femenino'}];
   usuario: any;
 
@@ -19,9 +22,9 @@ export class UsuarioComponent implements OnInit {
   maxFecha: string;
 
   // Alerta
-  tipoAlerta: string;
-  mostrarAlerta: boolean;
-  mensajeAlerta: string;
+  tipoAlerta: string = 'danger';
+  mostrarAlerta: boolean = false;
+  mensajeAlerta: string = 'dasdas ';
 
   //carga
   cargando: boolean = true;
@@ -33,7 +36,9 @@ export class UsuarioComponent implements OnInit {
     private usuarioServicio: UsuarioService,
     private router: Router,
     private datePipe: DatePipe
-  ) { }
+  ) { 
+
+  }
 
   ngOnInit(): void {
     this.inicializarForm();
@@ -74,14 +79,20 @@ export class UsuarioComponent implements OnInit {
     }else{
       this.guardarDatosForm();
       if(this.esFechaInvalida()) {
-        this.mostrarAlerta = true;
-        this.tipoAlerta = 'danger';
+        setTimeout(()=> {
+          this.mostrarAlerta = true;
+          this.tipoAlerta = 'danger';
+          this.mensajeAlerta = 'La fecha es inválida.';
+        },4000);
       } else{
         this.usuarioServicio.registro(this.usuarioModel).subscribe(
           (mensaje) => {
-            this.mostrarAlerta = true;
-            this.tipoAlerta = "success";
-            this.mensajeAlerta = "Usuario registrado con éxito.";
+
+            setTimeout(()=> {
+              this.mostrarAlerta = true;
+              this.tipoAlerta = "success";
+              this.mensajeAlerta = "Usuario registrado con éxito.";
+            },4000);
             
             setTimeout(() => 
             {
@@ -90,9 +101,13 @@ export class UsuarioComponent implements OnInit {
             }, 2000);
           },
           (error) => {
-            this.mostrarAlerta = true;
-            this.tipoAlerta = "danger";
-            this.mensajeAlerta = "Ocurrió un problema al registrarse. Por favor intentelo más tarde.";
+            setTimeout(() => 
+            {
+              this.mostrarAlerta = true;
+              this.tipoAlerta = "danger";
+              this.mensajeAlerta = "Ocurrió un problema al registrarse. Por favor intentelo más tarde.";
+            }, 2000);
+            
           }
         );
       }

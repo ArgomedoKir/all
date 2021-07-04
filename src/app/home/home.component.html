@@ -28,4 +28,4 @@
   <a class="iconhand" (click)="goToRegistro('/registro')" >Registrarme</a>
 </div>
 
-<ngb-alert *ngIf="mostrarAlerta" style="margin-top: -12.5px;" [type]="tipoAlerta" (closed)="mostrarAlerta = false;">{{mensajeAlerta}}</ngb-alert>
+<ngb-alert  [dismissible]="false"   #cerrarAlerta  *ngIf="mostrarAlerta" style="margin-top: -12.5px;" [type]="tipoAlerta" (closed)="mostrarAlerta = false;">{{mensajeAlerta}}</ngb-alert>
