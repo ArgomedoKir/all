@@ -1,31 +1,34 @@
-
-<div class="wrapper  my-5">
-  <form [formGroup]="usuarioForm">
-    <input type="text" id="login" formControlName="usuAlias"  name="login" placeholder="Nombre de Usuario">
-    <div *ngIf="usuAlias.invalid && (usuAlias.dirty || usuAlias.touched)" class="my-1" style="color: rgb(197, 68, 68);">
-      <div *ngIf="usuAlias.errors.required">
-          *Campo requerido
+<br>
+<h3 class="text-primary">Iniciar Sesión</h3><hr>
+<div class="centrar">
+  <div class="wrapper  my-5">
+    <form [formGroup]="usuarioForm">
+      <input class="form form-control" type="text" id="login" formControlName="usuAlias"  name="login" placeholder="Nombre de Usuario">
+      <div *ngIf="usuAlias.invalid && (usuAlias.dirty || usuAlias.touched)" class="my-1" style="color: rgb(197, 68, 68);">
+        <div *ngIf="usuAlias.errors.required">
+            *Campo requerido
+        </div>
+        <div *ngIf="usuAlias.errors.maxlength">
+            *Se requiere máximo 15 caracteres.
+        </div>
       </div>
-      <div *ngIf="usuAlias.errors.maxlength">
-          *Se requiere máximo 15 caracteres.
-      </div>
+      <br>
+      <input  class="form form-control" type="password" id="password" formControlName="usuContrasenia"  name="login" placeholder="Contraseña">
+      <div *ngIf="usuContrasenia.invalid && (usuContrasenia.dirty || usuContrasenia.touched)" class="my-1" style="color: rgb(197, 68, 68);">
+        <div *ngIf="usuContrasenia.errors.required">
+          *El campo es requerido
+        </div>
+        <div *ngIf="usuContrasenia.errors.minlength">
+            *Se requiere mínimo 8 caracteres.
+        </div>
+        <div *ngIf="usuContrasenia.errors.maxlength">
+            *Se requiere máximo 20 caracteres.
+        </div>
     </div>
-
-    <input type="password" id="password" formControlName="usuContrasenia"  name="login" placeholder="Contraseña">
-    <div *ngIf="usuContrasenia.invalid && (usuContrasenia.dirty || usuContrasenia.touched)" class="my-1" style="color: rgb(197, 68, 68);">
-      <div *ngIf="usuContrasenia.errors.required">
-        *El campo es requerido
-      </div>
-      <div *ngIf="usuContrasenia.errors.minlength">
-          *Se requiere mínimo 8 caracteres.
-      </div>
-      <div *ngIf="usuContrasenia.errors.maxlength">
-          *Se requiere máximo 20 caracteres.
-      </div>
+      <button  class="btn btn-primary my-3" (click)="iniciarSesion()" type="button"  [disabled]="" >Iniciar Sesión</button>
+    </form>
+    <a class="iconhand" (click)="goToRegistro('/registro')" >Registrarme</a>
   </div>
-    <input (click)="iniciarSesion()" type="submit" class=" my-3" [disabled]="" value="Iniciar Sesión">
-  </form>
-  <a class="iconhand" (click)="goToRegistro('/registro')" >Registrarme</a>
 </div>
 
 <ngb-alert  [dismissible]="false"   #cerrarAlerta  *ngIf="mostrarAlerta" style="margin-top: -12.5px;" [type]="tipoAlerta" (closed)="mostrarAlerta = false;">{{mensajeAlerta}}</ngb-alert>
