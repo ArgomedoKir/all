@@ -6,3 +6,7 @@ agm-map {
 #map{
     height: 30vw;
 }
+
+.contenedor{
+    max-width: 90vw;
+}

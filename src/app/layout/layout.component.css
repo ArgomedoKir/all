@@ -1,0 +1,13 @@
+.contenedor{
+    display: flex;
+}
+
+.sidebar{
+    width: 10vw;
+    max-width: 10vw;
+}
+
+.main{
+    width: 90vw;
+    max-width: 90vw;
+}

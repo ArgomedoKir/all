@@ -1,0 +1,9 @@
+<div class="wrapper">
+    <div *ngFor=" let router of RUTAS">
+        <li id="info-sidebar" [routerLink]="router.link" >
+            <i class={{router.icon}}></i><br>
+            {{router.title}}
+        </li>
+    </div>
+    <i class="fa fa-arrow-left blank"></i>
+</div>
